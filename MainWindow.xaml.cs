@@ -23,8 +23,11 @@ namespace Salesman
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine("Hhh");
-            MessageBox.Show("Hello.");
         }
+        private void Canvas_Click(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show(e.GetPosition((IInputElement) sender).ToString());
+        }
+
     }
 }

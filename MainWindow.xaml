@@ -8,6 +8,6 @@
         Title="Andrew's Salesman" Height="450" Width="800">
     <Grid Background="#FFFFEAD2">
         <Button Content="Display" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <InkCanvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,40,10,10"></InkCanvas>
+        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,40,10,10" Background="White" MouseLeftButtonDown="Canvas_Click"></Canvas>
     </Grid>
 </Window>
