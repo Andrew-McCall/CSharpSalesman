@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Salesman"
         mc:Ignorable="d"
-        Title="Andrew's Salesman" Height="450" Width="800">
+        Title="Andrew's Salesman" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Background="#FFFFEAD2">
         <Button Content="Display" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,40,10,10" Background="White" MouseLeftButtonDown="Canvas_Click"></Canvas>

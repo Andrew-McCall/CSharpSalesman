@@ -20,13 +20,14 @@ namespace Salesman
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SolidColorBrush MarkerFillBrush;
+        private readonly SolidColorBrush MarkerFillBrush = new SolidColorBrush();
         private readonly double MARKER_RADIUS = 10;
+
+        private Salesman logic = new Salesman();
 
         public MainWindow()
         {
             InitializeComponent();
-            MarkerFillBrush = new SolidColorBrush();
             MarkerFillBrush.Color = Colors.Black;
         }
 
@@ -39,11 +40,15 @@ namespace Salesman
             Ellipse marker = new Ellipse { Width = MARKER_RADIUS, Height = MARKER_RADIUS, Fill = MarkerFillBrush };
 
             double offset = MARKER_RADIUS / 2;
-            Thickness margin = new Thickness(clickCoords.X - offset, clickCoords.Y - offset, 0, 0);
+
+            double x = clickCoords.X - offset;
+            double y = clickCoords.Y - offset;
+
+            Thickness margin = new Thickness(x, y, 0, 0);
             marker.Margin = margin;
 
-            canvas.Children.Add(marker);
-
+            _ = canvas.Children.Add(marker);
+            logic.AddPoint(new DataPoint(x, y));
         }
 
     }
