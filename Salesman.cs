@@ -7,8 +7,8 @@ namespace Salesman
     class Salesman
     {
         private DataPoint[] Points = new DataPoint[0];
-        private int Length = 0;
-        
+        public int Length { get; private set; } = 0;
+       
         public void AddPoint(DataPoint point)
         {
             
@@ -20,11 +20,6 @@ namespace Salesman
             }
             Points[Length] = point;
             Length++;
-        }
-
-        public int Size()
-        {
-            return Length;
         }
 
         public int IndexOf(DataPoint point)
@@ -41,6 +36,16 @@ namespace Salesman
         public DataPoint Get(int index)
         {
             return Points[index];
+        }
+
+        public void Calculate()
+        {
+
+        }
+
+        public void Solve()
+        {
+
         }
 
     }
