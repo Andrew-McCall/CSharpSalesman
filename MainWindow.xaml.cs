@@ -28,6 +28,8 @@ namespace Salesman
         private readonly Random rnd = new Random();
 
         private readonly Canvas Canvas;
+        private readonly List<Line> Lines = new List<Line>();
+        private readonly List<Shape> Markers = new List<Shape>();
 
         public MainWindow()
         {
@@ -43,7 +45,6 @@ namespace Salesman
 
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
-
             double x = clickCoords.X - MARKER_RADIUS;
             double y = clickCoords.Y - MARKER_RADIUS;
 
@@ -51,7 +52,8 @@ namespace Salesman
             marker.Margin = margin;
 
             _ = Canvas.Children.Add(marker);
-            logic.AddPoint(new DataPoint(x, y, marker));
+            Markers.Add(marker);
+            logic.AddPoint(new DataPoint(x, y));
         }
 
         private Point RandomCoords()
@@ -63,15 +65,23 @@ namespace Salesman
         {
             for (int i = 0; i < logic.Length; i++)
             {
-                DataPoint point = logic.Get (i);
+                DataPoint point = logic.GetPoint(i);
                 Point coords = RandomCoords();
-                point.MovePoint(coords.X, coords.Y);
+                point.X = coords.X;
+                point.Y = coords.Y;
+                // TODO: ReRender Marker and Line i;
             }
         }
 
         private void Calculate_Button_Click(object sender, RoutedEventArgs e)
         {
-            logic.Calculate();
+            if (logic.Length > 0)
+            {
+                logic.Calculate();
+
+                Lines.Clear();
+                RenderLine(logic.GetPoint(0));
+            }
         }
 
         private void Add_Point_Button_Click(object sender, RoutedEventArgs e)
@@ -84,7 +94,29 @@ namespace Salesman
             marker.Margin = margin;
 
             _ = Canvas.Children.Add(marker);
-            logic.AddPoint(new DataPoint(coords.X, coords.Y, marker));
+            Markers.Add(marker);
+            logic.AddPoint(new DataPoint(coords.X, coords.Y));
         }
+
+        private void RenderLine(DataPoint prev)
+        {
+            if (Lines.Count == logic.Length || prev.Next != -1) return;
+
+            Line newLine = new Line();
+            newLine.Stroke = MarkerFillBrush;
+            newLine.StrokeThickness = 3;
+
+
+            newLine.X1 = prev.X + MARKER_RADIUS;
+            newLine.Y1 = prev.Y + MARKER_RADIUS;
+            DataPoint current = logic.GetPoint(prev.Next);
+            newLine.X2 = current.X + MARKER_RADIUS;
+            newLine.Y2 = current.Y + MARKER_RADIUS;
+
+            Lines.Add(newLine);
+
+            RenderLine(current);
+        }
+
     }
 }
