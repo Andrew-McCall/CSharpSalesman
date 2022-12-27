@@ -84,7 +84,7 @@ namespace Salesman
             return distance;
         }
 
-        private double DistanceBetween(DataPoint pointA, DataPoint pointB)
+        public double DistanceBetween(DataPoint pointA, DataPoint pointB)
         {
             return Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y);
         }
