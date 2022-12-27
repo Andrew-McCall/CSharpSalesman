@@ -31,7 +31,7 @@ namespace Salesman
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
         }
 
-        protected void Canvas_Click(object sender, MouseEventArgs e)
+        protected void Marker_Click(object sender, MouseEventArgs e)
         {
             Point clickCoords = e.GetPosition(this.Markers);
 
@@ -69,7 +69,14 @@ namespace Salesman
             }
         }
 
+        private void Clear_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Markers.Children.Clear();
+            this.Lines.Children.Clear();
 
+            this.logic.Clear();
+
+        }
 
         private void Add_Point_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -83,6 +90,7 @@ namespace Salesman
             _ = this.Markers.Children.Add(marker);
             logic.AddPoint(new DataPoint(coords.X, coords.Y));
         }
+
         private void Calculate_Button_Click(object sender, RoutedEventArgs e)
         {
             if (logic.Length > 0)

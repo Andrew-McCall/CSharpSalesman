@@ -10,6 +10,12 @@ namespace Salesman
         private DataPoint[] Points = new DataPoint[0];
         public int Length { get; private set; } = 0;
        
+        public void Clear()
+        {
+            this.Points = new DataPoint[0];
+            this.Length = 0;
+        }
+
         public void AddPoint(DataPoint point)
         {
             
@@ -41,34 +47,15 @@ namespace Salesman
 
         public void Calculate()
         {
+            if (Length > 1)
+            {
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    Points[i].Next = i + 1;
+                }
+                Points[Length - 1].Next = 0;
+            }
             
-            for (int i = 0; i < Length - 1; i++)
-            {
-                Points[i].Next = i + 1;
-            }
-            Points[Length - 1].Next = 0;
-
-            /*
-            for (int i = 0; i < Length - 1; i++)
-            {
-                Points[i].Next = i;
-
-                Line line = new Line();
-                line.X1 = Points[i].X;
-                line.Y1 = Points[i].Y;
-                line.X2 = Points[i + 1].X;
-                line.Y2 = Points[i + 1].Y;
-
-                Points[i].Line = line;
-            }
-            Points[Length-1].Next = 0;
-            Line finalLine = new Line();
-            finalLine.X1 = Points[Length-1].X;
-            finalLine.Y1 = Points[Length-1].Y;
-            finalLine.X2 = Points[0].X;
-            finalLine.Y2 = Points[0].Y;
-            Points[Length - 1].Line = finalLine;
-            */
         }
 
         public bool isCongruent()
