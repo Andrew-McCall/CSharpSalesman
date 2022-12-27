@@ -18,6 +18,7 @@ namespace Salesman
     public partial class MainWindow : Window
     {
         private readonly SolidColorBrush MarkerFillBrush = new SolidColorBrush();
+        private readonly SolidColorBrush LineFillBrush = new SolidColorBrush();
         private readonly double MARKER_DIAMETER = 10;
         private readonly double MARKER_RADIUS;
 
@@ -28,6 +29,8 @@ namespace Salesman
         {
             InitializeComponent();
             MarkerFillBrush.Color = Colors.Black;
+            LineFillBrush.Color = Colors.LightBlue;
+
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
         }
 
@@ -107,7 +110,7 @@ namespace Salesman
             if (Lines.Children.Count == logic.Length || prev.Next == -1) return;
 
             Line newLine = new Line();
-            newLine.Stroke = MarkerFillBrush;
+            newLine.Stroke = LineFillBrush;
             newLine.StrokeThickness = 3;
 
 
