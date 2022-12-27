@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Salesman
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly SolidColorBrush MarkerFillBrush = new SolidColorBrush();
@@ -27,21 +24,16 @@ namespace Salesman
         private readonly Salesman logic = new Salesman();
         private readonly Random rnd = new Random();
 
-        private readonly Canvas Canvas;
-        private readonly List<Line> Lines = new List<Line>();
-        private readonly List<Shape> Markers = new List<Shape>();
-
         public MainWindow()
         {
             InitializeComponent();
             MarkerFillBrush.Color = Colors.Black;
-            this.Canvas = (Canvas)FindName("Output");
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
         }
 
         protected void Canvas_Click(object sender, MouseEventArgs e)
         {
-            Point clickCoords = e.GetPosition(Canvas);
+            Point clickCoords = e.GetPosition(this.Markers);
 
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
@@ -51,8 +43,7 @@ namespace Salesman
             Thickness margin = new Thickness(x, y, 0, 0);
             marker.Margin = margin;
 
-            _ = Canvas.Children.Add(marker);
-            Markers.Add(marker);
+            _ = this.Markers.Children.Add(marker);
             logic.AddPoint(new DataPoint(x, y));
         }
 
@@ -63,26 +54,22 @@ namespace Salesman
 
         private void Randomise_Button_Click(object sender, RoutedEventArgs e)
         {
+
             for (int i = 0; i < logic.Length; i++)
             {
                 DataPoint point = logic.GetPoint(i);
                 Point coords = RandomCoords();
                 point.X = coords.X;
                 point.Y = coords.Y;
-                // TODO: ReRender Marker and Line i;
+
+                Shape marker = (Shape)this.Markers.Children[i];
+                marker.Margin = new Thickness(point.X, point.Y, 0, 0);
+
+                Lines.Children.Clear();
             }
         }
 
-        private void Calculate_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (logic.Length > 0)
-            {
-                logic.Calculate();
 
-                Lines.Clear();
-                RenderLine(logic.GetPoint(0));
-            }
-        }
 
         private void Add_Point_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -93,14 +80,22 @@ namespace Salesman
             Thickness margin = new Thickness(coords.X, coords.Y, 0, 0);
             marker.Margin = margin;
 
-            _ = Canvas.Children.Add(marker);
-            Markers.Add(marker);
+            _ = this.Markers.Children.Add(marker);
             logic.AddPoint(new DataPoint(coords.X, coords.Y));
+        }
+        private void Calculate_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (logic.Length > 0)
+            {
+                logic.Calculate();
+                Lines.Children.Clear();
+                RenderLine(logic.GetPoint(0));
+            }
         }
 
         private void RenderLine(DataPoint prev)
         {
-            if (Lines.Count == logic.Length || prev.Next != -1) return;
+            if (Lines.Children.Count == logic.Length || prev.Next == -1) return;
 
             Line newLine = new Line();
             newLine.Stroke = MarkerFillBrush;
@@ -113,8 +108,7 @@ namespace Salesman
             newLine.X2 = current.X + MARKER_RADIUS;
             newLine.Y2 = current.Y + MARKER_RADIUS;
 
-            Lines.Add(newLine);
-
+            _ = Lines.Children.Add(newLine);
             RenderLine(current);
         }
 
