@@ -58,22 +58,35 @@ namespace Salesman
             
         }
 
-        public bool IsCongruent()
+        public double Distance()
         {
-            if (Length <= 1) return false;
+            if (Length <= 1) return -1;
 
             int count = 0;
+            double distance = 0;
 
-            int current = Points[1].Next;
+            int current = Points[0].Next;
+            if (Points[current].Next == -1) return -1;
+
             while (current != 0)
             {
-                if (current == -1 || count > Length) return false;
-                
+                if (count > Length) return -1;
+
+                int next = Points[current].Next;
+
+                if (next == -1) return -1;
+                distance += DistanceBetween(this.Points[current], this.Points[next]);
+
                 count++;
-                current = Points[current].Next;
+                current = next;
             }
 
-            return true;
+            return distance;
+        }
+
+        private double DistanceBetween(DataPoint pointA, DataPoint pointB)
+        {
+            return Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y);
         }
 
         public void Solve()

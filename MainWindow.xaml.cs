@@ -99,9 +99,7 @@ namespace Salesman
                 Lines.Children.Clear();
                 RenderLine(logic.GetPoint(0));
             }
-
-            MessageBox.Show(logic.IsCongruent().ToString());
-
+            MessageBox.Show(logic.Distance().ToString());
         }
 
         private void RenderLine(DataPoint prev)
