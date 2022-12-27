@@ -58,9 +58,22 @@ namespace Salesman
             
         }
 
-        public bool isCongruent()
+        public bool IsCongruent()
         {
-            return false;
+            if (Length <= 1) return false;
+
+            int count = 0;
+
+            int current = Points[1].Next;
+            while (current != 0)
+            {
+                if (current == -1 || count > Length) return false;
+                
+                count++;
+                current = Points[current].Next;
+            }
+
+            return true;
         }
 
         public void Solve()
