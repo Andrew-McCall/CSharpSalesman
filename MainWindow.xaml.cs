@@ -99,7 +99,7 @@ namespace Salesman
                 Lines.Children.Clear();
                 RenderLine(logic.GetPoint(0));
             }
-            MessageBox.Show(logic.Distance().ToString());
+            MessageBox.Show(logic.DistanceSquaredTotal().ToString());
         }
 
         private void RenderLine(DataPoint prev)

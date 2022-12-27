@@ -57,8 +57,8 @@ namespace Salesman
             }
             
         }
-
-        public double Distance()
+        /*
+        public double DistanceNoDiagonal()
         {
             if (Length <= 1) return -1;
 
@@ -75,18 +75,64 @@ namespace Salesman
                 int next = Points[current].Next;
 
                 if (next == -1) return -1;
-                distance += DistanceBetween(this.Points[current], this.Points[next]);
+
+                DataPoint pointA = this.Points[current];
+                DataPoint pointB = this.Points[next];
+
+                distance += Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y); 
 
                 count++;
                 current = next;
             }
 
             return distance;
+        }*/
+        public bool IsCongruent()
+        {
+            if (Length <= 1) return false;
+
+            int count = 0;
+
+            int current = Points[1].Next;
+            while (current != 0)
+            {
+                if (current == -1 || count > Length) return false;
+
+                count++;
+                current = Points[current].Next;
+            }
+
+            return true;
         }
 
-        public double DistanceBetween(DataPoint pointA, DataPoint pointB)
+            public double DistanceSquaredTotal()
         {
-            return Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y);
+            if (!IsCongruent()) return -1;
+
+            double distance = 0;
+            int count = 0;
+
+            DataPoint prev = Points[0];
+
+            while (count < Length)
+            {
+                count++;
+
+                DataPoint next = Points[prev.Next];
+
+                distance += DistanceBetweenSquared(prev, next);
+
+                prev = next;
+
+            }
+
+            return distance;
+        }
+
+
+        public double DistanceBetweenSquared(DataPoint pointA, DataPoint pointB)
+        {
+            return Math.Pow(Math.Abs(pointA.X - pointB.X),2) + Math.Pow(Math.Abs(pointA.Y - pointB.Y), 2);
         }
 
         public void Solve()
