@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Shapes;
+using System.Windows;
 
 namespace Salesman
 {
@@ -49,22 +50,81 @@ namespace Salesman
         {
             if (Length > 1)
             {
-                for (int i = 0; i < Length - 1; i++)
+                Chain();
+
+                
+                bool isBetter = true;
+                while (isBetter)
                 {
-                    Points[i].Next = i + 1;
+                    isBetter = false;
+                    
+                    for (int x = 0; x < Length; x++)
+                    {
+                        int swap = FindLowestSwap(x);
+                        DataPoint point = Points[x];
+                        DataPoint pointSwap = Points[swap];
+
+                        if (point.Next != swap)
+                        {
+                            isBetter = true;
+                            int nextStore = point.Next;
+                            point.Next = pointSwap.Next;
+                            pointSwap.Next = nextStore;
+
+                        }
+                    }
+                    
                 }
-                Points[Length - 1].Next = 0;
+                
             }
-            
+        }
+
+        private void Chain()
+        {
+            for (int i = 0; i < Length - 1; i++)
+            {
+                Points[i].Next = i + 1;
+            }
+            Points[Length - 1].Next = 0;
+        }
+
+        private int FindLowestSwap(int node)
+        {
+            DataPoint nodePoint = Points[node];
+
+            int lowestIndex = nodePoint.Next;
+            double lowestDistance = DistanceSquaredTotal();
+            for (int i = 0; i < Length; i++)
+            {
+                if (nodePoint.Next != i)
+                {
+                    DataPoint iPoint = Points[i];
+                    int iOldNext = iPoint.Next;
+                    iPoint.Next = nodePoint.Next;
+                    nodePoint.Next = iOldNext;
+
+                    double currentDistance = DistanceSquaredTotal();
+
+                    if (lowestDistance > currentDistance && currentDistance != -1)
+                    {
+                        lowestDistance = currentDistance;
+                        lowestIndex = i;
+                    }
+
+                    nodePoint.Next = iPoint.Next;
+                    iPoint.Next = iOldNext;
+                }
+            }
+            return lowestIndex;
         }
 
         public bool IsCongruent()
         {
             if (Length <= 1) return false;
 
-            int count = 0;
+            int count = 1;
 
-            int current = Points[1].Next;
+            int current = Points[0].Next;
             while (current != 0)
             {
                 if (current == -1 || count > Length) return false;
@@ -72,8 +132,7 @@ namespace Salesman
                 count++;
                 current = Points[current].Next;
             }
-
-            return true;
+            return count == Length;
         }
 
         public double DistanceSquaredTotal()
