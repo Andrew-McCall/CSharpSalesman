@@ -57,36 +57,7 @@ namespace Salesman
             }
             
         }
-        /*
-        public double DistanceNoDiagonal()
-        {
-            if (Length <= 1) return -1;
 
-            int count = 0;
-            double distance = 0;
-
-            int current = Points[0].Next;
-            if (Points[current].Next == -1) return -1;
-
-            while (current != 0)
-            {
-                if (count > Length) return -1;
-
-                int next = Points[current].Next;
-
-                if (next == -1) return -1;
-
-                DataPoint pointA = this.Points[current];
-                DataPoint pointB = this.Points[next];
-
-                distance += Math.Abs(pointA.X - pointB.X) + Math.Abs(pointA.Y - pointB.Y); 
-
-                count++;
-                current = next;
-            }
-
-            return distance;
-        }*/
         public bool IsCongruent()
         {
             if (Length <= 1) return false;
@@ -105,7 +76,7 @@ namespace Salesman
             return true;
         }
 
-            public double DistanceSquaredTotal()
+        public double DistanceSquaredTotal()
         {
             if (!IsCongruent()) return -1;
 
@@ -114,7 +85,7 @@ namespace Salesman
 
             DataPoint prev = Points[0];
 
-            while (count < Length)
+            while (count <= Length)
             {
                 count++;
 
@@ -129,10 +100,14 @@ namespace Salesman
             return distance;
         }
 
-
-        public double DistanceBetweenSquared(DataPoint pointA, DataPoint pointB)
+        private double DistanceBetweenSquared(DataPoint pointA, DataPoint pointB)
         {
             return Math.Pow(Math.Abs(pointA.X - pointB.X),2) + Math.Pow(Math.Abs(pointA.Y - pointB.Y), 2);
+        }
+
+        public double DistanceBetween(DataPoint pointA, DataPoint pointB)
+        {
+            return Math.Sqrt(DistanceBetweenSquared(pointA, pointB));
         }
 
         public void Solve()
