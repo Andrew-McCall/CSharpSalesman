@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Shapes;
-using System.Windows;
+
 
 namespace Salesman
 {
@@ -50,31 +48,8 @@ namespace Salesman
         {
             if (Length > 1)
             {
-                Chain();
 
-                
-                bool isBetter = true;
-                while (isBetter)
-                {
-                    isBetter = false;
-                    
-                    for (int x = 0; x < Length; x++)
-                    {
-                        int swap = FindLowestSwap(x);
-                        DataPoint point = Points[x];
-                        DataPoint pointSwap = Points[swap];
-
-                        if (point.Next != swap)
-                        {
-                            isBetter = true;
-                            int nextStore = point.Next;
-                            point.Next = pointSwap.Next;
-                            pointSwap.Next = nextStore;
-
-                        }
-                    }
-                    
-                }
+                GreedyAll();
                 
             }
         }
@@ -88,6 +63,108 @@ namespace Salesman
             Points[Length - 1].Next = 0;
         }
 
+        private void ClearNext()
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                Points[i].Next = -1;
+            }
+        }
+
+        private void GreedyZero()
+        {
+            Greedy(0);
+        }
+        private void GreedyAll()
+        {
+            GreedyZero();
+            int lowest = 0;
+            double distance = DistanceSquaredTotal();
+
+            for (int i = 1; i < Length; i++)
+            {
+                Greedy(i);
+                double currentDistance = DistanceSquaredTotal();
+                if (currentDistance < distance)
+                {
+                    distance = currentDistance;
+                    lowest = i;
+                }
+            }
+
+            Greedy(lowest);
+        }
+
+        public void Greedy(int start)
+        {
+            ClearNext();
+
+            int count = 1;
+            int current = start;
+            while (count < Length)
+            {
+                count++;
+                int nearest = FindNearestEmptyPoint(current);
+                if (nearest == -1) return;
+                Points[current].Next = nearest;
+                current = nearest;
+            }
+            Points[current].Next = start;
+        }
+
+        private int FindNearestEmptyPoint(int node)
+        {
+            DataPoint currentPoint = Points[node];
+            int nearest = -1;
+            double lowestDistance = -1;
+            for (int i = 0; i < Length; i++)
+            {
+                if (i != node)
+                {
+                    DataPoint comparePoint = Points[i];
+                    if (comparePoint.Next == -1)
+                    {
+                        double distance = DistanceBetweenSquared(comparePoint, currentPoint);
+                        if (nearest == -1 || lowestDistance > distance)
+                        {
+                            lowestDistance = distance;
+                            nearest = i;
+                        }
+
+                    }
+                }
+            }
+            return nearest;
+        }
+
+        private void LowestSwap() // First Attempt
+        {
+            Chain();
+
+            bool isBetter = true;
+            while (isBetter)
+            {
+                isBetter = false;
+
+                for (int x = 0; x < Length; x++)
+                {
+                    int swap = FindLowestSwap(x);
+                    DataPoint point = Points[x];
+                    DataPoint pointSwap = Points[swap];
+
+                    if (point.Next != swap)
+                    {
+                        isBetter = true;
+                        int nextStore = point.Next;
+                        point.Next = pointSwap.Next;
+                        pointSwap.Next = nextStore;
+
+                    }
+                }
+
+            }
+
+        }
         private int FindLowestSwap(int node)
         {
             DataPoint nodePoint = Points[node];
@@ -117,6 +194,7 @@ namespace Salesman
             }
             return lowestIndex;
         }
+
 
         public bool IsCongruent()
         {

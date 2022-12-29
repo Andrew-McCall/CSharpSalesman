@@ -102,7 +102,7 @@ namespace Salesman
                 Lines.Children.Clear();
                 RenderLine(logic.GetPoint(0));
             }
-            MessageBox.Show(logic.DistanceSquaredTotal().ToString());
+            MessageBox.Show(logic.DistanceSquaredTotal().ToString(), Title="Distance Squared");
         }
 
         private void RenderLine(DataPoint prev)
