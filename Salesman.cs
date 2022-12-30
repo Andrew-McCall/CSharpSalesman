@@ -51,6 +51,7 @@ namespace Salesman
 
                 GreedyAll();
                 
+                
             }
         }
 
@@ -79,12 +80,12 @@ namespace Salesman
         {
             GreedyZero();
             int lowest = 0;
-            double distance = DistanceSquaredTotal();
+            double distance = DistanceTotal();
 
             for (int i = 1; i < Length; i++)
             {
                 Greedy(i);
-                double currentDistance = DistanceSquaredTotal();
+                double currentDistance = DistanceTotal();
                 if (currentDistance < distance)
                 {
                     distance = currentDistance;
@@ -139,7 +140,7 @@ namespace Salesman
 
         private void LowestSwap() // First Attempt
         {
-            Chain();
+            
 
             bool isBetter = true;
             while (isBetter)
@@ -170,7 +171,7 @@ namespace Salesman
             DataPoint nodePoint = Points[node];
 
             int lowestIndex = nodePoint.Next;
-            double lowestDistance = DistanceSquaredTotal();
+            double lowestDistance = DistanceTotal();
             for (int i = 0; i < Length; i++)
             {
                 if (nodePoint.Next != i)
@@ -180,7 +181,7 @@ namespace Salesman
                     iPoint.Next = nodePoint.Next;
                     nodePoint.Next = iOldNext;
 
-                    double currentDistance = DistanceSquaredTotal();
+                    double currentDistance = DistanceTotal();
 
                     if (lowestDistance > currentDistance && currentDistance != -1)
                     {
@@ -213,7 +214,7 @@ namespace Salesman
             return count == Length;
         }
 
-        public double DistanceSquaredTotal()
+        public double DistanceTotal(bool isSquared = true)
         {
             if (!IsCongruent()) return -1;
 
@@ -227,8 +228,14 @@ namespace Salesman
                 count++;
 
                 DataPoint next = Points[prev.Next];
-
-                distance += DistanceBetweenSquared(prev, next);
+                if (isSquared)
+                {
+                    distance += DistanceBetweenSquared(prev, next);
+                }
+                else
+                {
+                    distance += DistanceBetween(prev, next);
+                }
 
                 prev = next;
 

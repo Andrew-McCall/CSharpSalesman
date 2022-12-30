@@ -101,8 +101,8 @@ namespace Salesman
                 logic.Calculate();
                 Lines.Children.Clear();
                 RenderLine(logic.GetPoint(0));
+                MessageBox.Show(Math.Round(logic.DistanceTotal(false), 1).ToString(), Title = "Distance Squared");
             }
-            MessageBox.Show(logic.DistanceSquaredTotal().ToString(), Title="Distance Squared");
         }
 
         private void RenderLine(DataPoint prev)
