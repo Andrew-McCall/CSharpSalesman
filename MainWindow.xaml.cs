@@ -22,7 +22,7 @@ namespace Salesman
         private readonly double MARKER_DIAMETER = 10;
         private readonly double MARKER_RADIUS;
 
-        private readonly Salesman logic = new Salesman();
+        private readonly SalesmanBackup logic = new SalesmanBackup();
         private readonly Random rnd = new Random();
 
         public MainWindow()
@@ -32,11 +32,16 @@ namespace Salesman
             LineFillBrush.Color = Colors.LightBlue;
 
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
+
+            Salesman s = new Salesman();
+            s.Points.AddPoint(new Point(1,2));
+            s.ClearPath();
+            MessageBox.Show(s.Solution[0].ToString());
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
         {
-            Point clickCoords = e.GetPosition(this.Markers);
+            System.Windows.Point clickCoords = e.GetPosition(this.Markers);
 
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
@@ -50,9 +55,9 @@ namespace Salesman
             logic.AddPoint(new DataPoint(x, y));
         }
 
-        private Point RandomCoords()
+        private System.Windows.Point RandomCoords()
         {
-            return new Point(rnd.Next(73500) / 100 + 15, rnd.Next(33000) / 100 + 15);
+            return new System.Windows.Point(rnd.Next(73500) / 100 + 15, rnd.Next(33000) / 100 + 15);
         }
 
         private void Randomise_Button_Click(object sender, RoutedEventArgs e)
@@ -61,7 +66,7 @@ namespace Salesman
             for (int i = 0; i < logic.Length; i++)
             {
                 DataPoint point = logic.GetPoint(i);
-                Point coords = RandomCoords();
+                System.Windows.Point coords = RandomCoords();
                 point.X = coords.X;
                 point.Y = coords.Y;
 
@@ -85,7 +90,7 @@ namespace Salesman
         {
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
-            Point coords = RandomCoords();
+            System.Windows.Point coords = RandomCoords();
 
             Thickness margin = new Thickness(coords.X, coords.Y, 0, 0);
             marker.Margin = margin;
