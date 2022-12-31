@@ -21,22 +21,12 @@ namespace Salesman
 
         public void RunAlgorithm()
         {
-            this.Solution = Algorithm.Calculate(Points.GetAllPoints(), NullPath());
-        }
-
-        public int[] NullPath()
-        {
-            int[] solution = new int[Points.Length];
-            for (int i = 0; i < solution.Length; i++)
-            {
-                solution[i] = -1;
-            }
-            return solution;
+            this.Solution = Algorithm.Calculate(Points.GetAllPoints(), SolutionMaths.NullPath(Points.Length));
         }
 
         public void ClearPath()
         {
-            this.Solution = NullPath();
+            this.Solution = SolutionMaths.NullPath(Points.Length) ;
         }
         public double DistanceTotal(bool isSquared = true)
         {

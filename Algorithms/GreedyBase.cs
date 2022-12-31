@@ -9,7 +9,7 @@ namespace Salesman.Algorithms
 
         public static int[] Calculate(Point[] points, int startingNode)
         {
-            int[] solution = new int[points.Length];
+            int[] solution = SolutionMaths.NullPath(points.Length);
 
             int count = 1;
             int current = startingNode;
@@ -47,6 +47,7 @@ namespace Salesman.Algorithms
                         }
 
                     }
+
                 }
             }
             return nearest;

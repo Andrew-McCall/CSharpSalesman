@@ -63,5 +63,14 @@ namespace Salesman
             return count == points.Length;
         }
 
+        public static int[] NullPath(int pathLength)
+        {
+            int[] solution = new int[pathLength];
+            for (int i = 0; i < solution.Length; i++)
+            {
+                solution[i] = -1;
+            }
+            return solution;
+        }
     }
 }
