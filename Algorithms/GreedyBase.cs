@@ -7,8 +7,9 @@ namespace Salesman.Algorithms
     class GreedyBase
     {
 
-        public int[] Greedy(Point[] points, int[] solution, int startingNode)
+        public static int[] Calculate(Point[] points, int startingNode)
         {
+            int[] solution = new int[points.Length];
 
             int count = 1;
             int current = startingNode;
@@ -26,7 +27,7 @@ namespace Salesman.Algorithms
 
         }
 
-        private int FindNearestEmptyPoint(int nodeIndex, Point[] points, int[] solution)
+        private static int FindNearestEmptyPoint(int nodeIndex, Point[] points, int[] solution)
         {
             Point currentPoint = points[nodeIndex];
             int nearest = -1;
@@ -38,7 +39,7 @@ namespace Salesman.Algorithms
                     Point comparePoint = points[i];
                     if (solution[i] == -1)
                     {
-                        double distance = Salesman.DistanceBetweenSquared(comparePoint, currentPoint);
+                        double distance = SolutionMaths.DistanceBetweenSquared(comparePoint, currentPoint);
                         if (nearest == -1 || lowestDistance > distance)
                         {
                             lowestDistance = distance;

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Salesman.Algorithms;
 
 namespace Salesman
 {
@@ -34,9 +35,12 @@ namespace Salesman
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
             Salesman s = new Salesman();
-            s.Points.AddPoint(new Point(1,2));
-            s.ClearPath();
-            MessageBox.Show(s.Solution[0].ToString());
+            s.Points.AddPoint(new Point(10, 20));
+            s.Points.AddPoint(new Point(30, 20));
+            s.Points.AddPoint(new Point(50, 30));
+            s.Points.AddPoint(new Point(60, 123));
+            s.Algorithm = new GreedyAll();
+            s.RunAlgorithm();
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
@@ -113,6 +117,7 @@ namespace Salesman
         private void RenderLine(DataPoint prev)
         {
             if (Lines.Children.Count == logic.Length || prev.Next == -1) return;
+                        DataPoint current = logic.GetPoint(prev.Next);
 
             Line newLine = new Line();
             newLine.Stroke = LineFillBrush;
@@ -121,7 +126,6 @@ namespace Salesman
 
             newLine.X1 = prev.X + MARKER_RADIUS;
             newLine.Y1 = prev.Y + MARKER_RADIUS;
-            DataPoint current = logic.GetPoint(prev.Next);
             newLine.X2 = current.X + MARKER_RADIUS;
             newLine.Y2 = current.Y + MARKER_RADIUS;
 
