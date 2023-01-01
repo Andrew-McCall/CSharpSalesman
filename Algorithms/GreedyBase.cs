@@ -34,21 +34,19 @@ namespace Salesman.Algorithms
             double lowestDistance = -1;
             for (int i = 0; i < points.Length; i++)
             {
-                if (i != nodeIndex)
+                if (i == nodeIndex) continue;
+
+                Point comparePoint = points[i];
+
+                if (solution[i] != -1) continue;
+
+                double distance = SolutionMaths.DistanceBetweenSquared(comparePoint, currentPoint);
+                if (nearest == -1 || lowestDistance > distance)
                 {
-                    Point comparePoint = points[i];
-                    if (solution[i] == -1)
-                    {
-                        double distance = SolutionMaths.DistanceBetweenSquared(comparePoint, currentPoint);
-                        if (nearest == -1 || lowestDistance > distance)
-                        {
-                            lowestDistance = distance;
-                            nearest = i;
-                        }
-
-                    }
-
+                    lowestDistance = distance;
+                    nearest = i;
                 }
+
             }
             return nearest;
         }
