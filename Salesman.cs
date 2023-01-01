@@ -24,14 +24,17 @@ namespace Salesman
             this.Solution = Algorithm.Calculate(Points.GetAllPoints(), SolutionMaths.NullPath(Points.Length));
         }
 
+        /*
         public void ClearPath()
         {
             this.Solution = SolutionMaths.NullPath(Points.Length) ;
         }
+
         public double DistanceTotal(bool isSquared = true)
         {
             return SolutionMaths.DistanceTotal(Points.GetAllPoints(), Solution, isSquared);
         }
+        */
 
     }
 }
