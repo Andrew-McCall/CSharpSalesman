@@ -16,5 +16,11 @@ namespace Salesman
             this.Y = y;
         }
 
+        public Point(System.Windows.Point point)
+        {
+            this.X = point.X;
+            this.Y = point.Y;
+        }
+
     }
 }

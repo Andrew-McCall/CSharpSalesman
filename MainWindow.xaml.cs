@@ -23,7 +23,7 @@ namespace Salesman
         private readonly double MARKER_DIAMETER = 10;
         private readonly double MARKER_RADIUS;
 
-        private readonly SalesmanBackup logic = new SalesmanBackup();
+        private readonly Salesman Logic = new Salesman();
         private readonly Random rnd = new Random();
 
         public MainWindow()
@@ -34,18 +34,12 @@ namespace Salesman
 
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
-            Salesman s = new Salesman();
-            s.Points.AddPoint(new Point(10, 20));
-            s.Points.AddPoint(new Point(30, 20));
-            s.Points.AddPoint(new Point(50, 30));
-            s.Points.AddPoint(new Point(60, 123));
-            s.Algorithm = new GreedyAll();
-            s.RunAlgorithm();
+            Logic.Algorithm = new GreedyAll();
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
         {
-            System.Windows.Point clickCoords = e.GetPosition(this.Markers);
+            Point clickCoords = new Point(e.GetPosition(this.Markers));
 
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
@@ -56,21 +50,21 @@ namespace Salesman
             marker.Margin = margin;
 
             _ = this.Markers.Children.Add(marker);
-            logic.AddPoint(new DataPoint(x, y));
+            Logic.Points.AddPoint(new Point(x, y));
         }
 
-        private System.Windows.Point RandomCoords()
+        private Point RandomCoords()
         {
-            return new System.Windows.Point(rnd.Next(73500) / 100 + 15, rnd.Next(33000) / 100 + 15);
+            return new Point(rnd.Next(73500) / 100 + 15, rnd.Next(33000) / 100 + 15);
         }
 
         private void Randomise_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            for (int i = 0; i < logic.Length; i++)
+            for (int i = 0; i < Logic.Points.Length; i++)
             {
-                DataPoint point = logic.GetPoint(i);
-                System.Windows.Point coords = RandomCoords();
+                Point point = Logic.Points.GetPoint(i);
+                Point coords = RandomCoords();
                 point.X = coords.X;
                 point.Y = coords.Y;
 
@@ -86,48 +80,50 @@ namespace Salesman
             this.Markers.Children.Clear();
             this.Lines.Children.Clear();
 
-            this.logic.Clear();
-
+            this.Logic.Points.Clear();
         }
 
         private void Add_Point_Button_Click(object sender, RoutedEventArgs e)
         {
             Ellipse marker = new Ellipse { Width = MARKER_DIAMETER, Height = MARKER_DIAMETER, Fill = MarkerFillBrush };
 
-            System.Windows.Point coords = RandomCoords();
+            Point coords = RandomCoords();
 
             Thickness margin = new Thickness(coords.X, coords.Y, 0, 0);
             marker.Margin = margin;
 
             _ = this.Markers.Children.Add(marker);
-            logic.AddPoint(new DataPoint(coords.X, coords.Y));
+            Logic.Points.AddPoint(new Point(coords.X, coords.Y));
         }
 
         private void Calculate_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (logic.Length > 0)
+            if (Logic.Points.Length > 0)
             {
-                logic.Calculate();
+                Logic.RunAlgorithm();
                 Lines.Children.Clear();
-                RenderLine(logic.GetPoint(0));
-                MessageBox.Show(Math.Round(logic.DistanceTotal(false), 1).ToString(), Title = "Distance Squared");
+                RenderLine(0);
+                MessageBox.Show(Math.Round(SolutionMaths.DistanceTotal(Logic.Points.GetAllPoints(), Logic.Solution, false), 1).ToString(), Title = "Distance Squared");
             }
         }
 
-        private void RenderLine(DataPoint prev)
+        private void RenderLine(int prev)
         {
-            if (Lines.Children.Count == logic.Length || prev.Next == -1) return;
-                        DataPoint current = logic.GetPoint(prev.Next);
+            if (Lines.Children.Count == Logic.Points.Length || Logic.Solution[prev] == -1) return;
+            Point prevPoint = Logic.Points.GetPoint(prev);
+
+            int current = Logic.Solution[prev];
+            Point currentPoint = Logic.Points.GetPoint(current);
 
             Line newLine = new Line();
             newLine.Stroke = LineFillBrush;
             newLine.StrokeThickness = 3;
 
 
-            newLine.X1 = prev.X + MARKER_RADIUS;
-            newLine.Y1 = prev.Y + MARKER_RADIUS;
-            newLine.X2 = current.X + MARKER_RADIUS;
-            newLine.Y2 = current.Y + MARKER_RADIUS;
+            newLine.X1 = prevPoint.X + MARKER_RADIUS;
+            newLine.Y1 = prevPoint.Y + MARKER_RADIUS;
+            newLine.X2 = currentPoint.X + MARKER_RADIUS;
+            newLine.Y2 = currentPoint.Y + MARKER_RADIUS;
 
             _ = Lines.Children.Add(newLine);
             RenderLine(current);
