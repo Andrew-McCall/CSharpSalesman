@@ -55,7 +55,7 @@ namespace Salesman
             int current = solution[0];
             while (current != 0)
             {
-                if (current == -1 || count > points.Length) return false;
+                if (current == solution[current]|| current == -1 || count > points.Length) return false;
 
                 count++;
                 current = solution[current];
