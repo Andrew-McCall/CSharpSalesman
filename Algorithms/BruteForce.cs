@@ -26,7 +26,7 @@ namespace Salesman.Algorithms
                     }
                 }*/
 
-                double pDistance = SolutionMaths.DistanceTotal(points, pSolution, false); // IsCongrunet subcall checks for vaild
+                double pDistance = SolutionMaths.DistanceTotal(points, pSolution, true); // IsCongrunet subcall checks for vaild
                 if (pDistance == -1) continue;
                 if (lowestDistance == -1 || pDistance < lowestDistance)
                 {
