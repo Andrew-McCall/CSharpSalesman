@@ -34,7 +34,8 @@ namespace Salesman
 
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
-            Logic.Algorithm = new GreedyAll();
+            //Logic.Algorithm = new GreedyAll();
+            Logic.Algorithm = new BruteForce();
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
