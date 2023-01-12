@@ -99,6 +99,8 @@ namespace Salesman
 
         private void Calculate_Button_Click(object sender, RoutedEventArgs e)
         {
+            Button calculateButton = (Button)sender;
+            calculateButton.IsEnabled = false;
             if (Logic.Points.Length > 0)
             {
                 Logic.RunAlgorithm();
@@ -106,6 +108,7 @@ namespace Salesman
                 RenderLine(0);
                 MessageBox.Show(Math.Round(SolutionMaths.DistanceTotal(Logic.Points.GetAllPoints(), Logic.Solution, false), 1).ToString(), Title = "Distance Squared");
             }
+            calculateButton.IsEnabled = true;
         }
 
         private void RenderLine(int prev)
