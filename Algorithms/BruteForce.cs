@@ -15,17 +15,6 @@ namespace Salesman.Algorithms
             foreach( int[] pSolution in heaps.Combinations)
             {
 
-                /*
-                bool isVaild = true;
-                for (int i = 0; i<pSolution.Length; i++)
-                {
-                    if (pSolution[i] == i)
-                    {
-                        isVaild = false;
-                        break;
-                    }
-                }*/
-
                 double pDistance = SolutionMaths.DistanceTotal(points, pSolution, true); // IsCongrunet subcall checks for vaild
                 if (pDistance == -1) continue;
                 if (lowestDistance == -1 || pDistance < lowestDistance)

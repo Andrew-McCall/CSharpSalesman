@@ -8,7 +8,7 @@ namespace Salesman.Algorithms
     public class Heaps
     {
 
-        public ICollection<IList<int>> Combinations;
+        public List<IList<int>> Combinations;
 
         public Heaps(int size)
         {
@@ -24,8 +24,9 @@ namespace Salesman.Algorithms
 
         private void Permute(int currentLast, int[] array)
         {
-            if (currentLast == 1) Combinations.Add((int[])array.Clone());
-
+            if (currentLast == 1) {
+                Combinations.Add((int[])array.Clone());
+            }
             else
             {
                 Permute(currentLast - 1, array);

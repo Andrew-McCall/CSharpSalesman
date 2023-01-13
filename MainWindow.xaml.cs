@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Salesman.Algorithms;
 
+
 namespace Salesman
 {
     public partial class MainWindow : Window
@@ -35,7 +36,7 @@ namespace Salesman
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
             //Logic.Algorithm = new GreedyAll();
-            Logic.Algorithm = new BruteForce();
+            Logic.Algorithm = new BruteForceThreaded();
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
@@ -103,6 +104,7 @@ namespace Salesman
             calculateButton.IsEnabled = false;
             if (Logic.Points.Length > 0)
             {
+                Logic.Solution = null;
                 Logic.RunAlgorithm();
                 Lines.Children.Clear();
                 RenderLine(0);
