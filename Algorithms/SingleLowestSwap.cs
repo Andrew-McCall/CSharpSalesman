@@ -13,7 +13,7 @@ namespace Salesman.Algorithms
             {
                 solution[i] = i + 1;
             }
-            solution[solution.Length - 1] = 0;
+            solution[^1] = 0;
         }
 
         public int[] Calculate(Point[] points, int[] solution)

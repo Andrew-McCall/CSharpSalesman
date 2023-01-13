@@ -121,15 +121,17 @@ namespace Salesman
             int current = Logic.Solution[prev];
             Point currentPoint = Logic.Points.GetPoint(current);
 
-            Line newLine = new Line();
-            newLine.Stroke = LineFillBrush;
-            newLine.StrokeThickness = 3;
+            Line newLine = new Line
+            {
+                Stroke = LineFillBrush,
+                StrokeThickness = 3,
 
 
-            newLine.X1 = prevPoint.X + MARKER_RADIUS;
-            newLine.Y1 = prevPoint.Y + MARKER_RADIUS;
-            newLine.X2 = currentPoint.X + MARKER_RADIUS;
-            newLine.Y2 = currentPoint.Y + MARKER_RADIUS;
+                X1 = prevPoint.X + MARKER_RADIUS,
+                Y1 = prevPoint.Y + MARKER_RADIUS,
+                X2 = currentPoint.X + MARKER_RADIUS,
+                Y2 = currentPoint.Y + MARKER_RADIUS
+            };
 
             _ = Lines.Children.Add(newLine);
             RenderLine(current);
