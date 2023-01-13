@@ -100,7 +100,7 @@ namespace Salesman
                 Logic.RunAlgorithm();
                 Lines.Children.Clear();
                 RenderLine(0);
-                MessageBox.Show(Math.Round(SolutionMaths.DistanceTotal(Logic.Points.GetAllPoints(), Logic.Solution, false), 1).ToString(), Title = "Distance Squared");
+                MessageBox.Show(Math.Round(SolutionMaths.DistanceTotal(Logic.Points.GetAllPoints(), Logic.Solution, false), 1).ToString(), "Distance");
             }
             calculateButton.IsEnabled = true;
         }
