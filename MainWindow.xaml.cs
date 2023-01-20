@@ -18,6 +18,8 @@ namespace Salesman
 
         private readonly Salesman Logic = new Salesman();
         private readonly Random rnd = new Random();
+        private readonly MenuedAlgorithm[] Algorithms = new MenuedAlgorithm[] { new MenuedAlgorithm("Brute Force", new BruteForceThreaded()), new MenuedAlgorithm("Greedy", new GreedyAll()) };
+        private ComboBoxItem CurrentAlgorithm;
 
         public MainWindow()
         {
@@ -27,7 +29,8 @@ namespace Salesman
 
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
-            Logic.Algorithm = new BruteForceThreaded();
+
+            Logic.Algorithm = Algorithms[0];
         }
 
         protected void Marker_Click(object sender, MouseEventArgs e)
@@ -126,6 +129,19 @@ namespace Salesman
 
             _ = Lines.Children.Add(newLine);
             RenderLine(current);
+        }
+
+        private void AlgrithmMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem menuItem = (ComboBoxItem)sender;
+            foreach (MenuedAlgorithm option in this.Algorithms)
+            {
+                if (option.DisplayName.Equals(menuItem.Content))
+                {
+                    Logic.Algorithm = option;
+                    break;
+                }
+            }
         }
 
     }
