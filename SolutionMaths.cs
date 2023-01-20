@@ -70,5 +70,16 @@ namespace Salesman
             }
             return solution;
         }
+
+        public static int[] ChainPath(int pathLength)
+        {
+            int[] solution = new int[pathLength];
+            for (int i = 0; i < solution.Length; i++)
+            {
+                solution[i] = i + 1;
+            }
+            solution[^1] = 0;
+            return solution;
+        }
     }
 }

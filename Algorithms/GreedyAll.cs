@@ -4,7 +4,7 @@ namespace Salesman.Algorithms
 {
     class GreedyAll : IAlgorithm
     {
-        public int[] Calculate(Point[] points, int[] solution)
+        public int[] Calculate(Point[] points)
         {
             int[] lowestSolution = GreedyBase.Calculate(points, 0);
             double distance = SolutionMaths.DistanceTotal(points, lowestSolution);

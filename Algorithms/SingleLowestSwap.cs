@@ -4,19 +4,11 @@ namespace Salesman.Algorithms
 {
     class SingleLowestSwap : IAlgorithm
     {
-        public void ChainSolution(int[] solution)
-        {
+        
 
-            for (int i = 0; i < solution.Length; i++)
-            {
-                solution[i] = i + 1;
-            }
-            solution[^1] = 0;
-        }
-
-        public int[] Calculate(Point[] points, int[] solution)
+        public int[] Calculate(Point[] points)
         {
-            ChainSolution(solution);
+            int[] solution = SolutionMaths.ChainPath(points.Length);
 
             bool isBetter = true;
             while (isBetter)

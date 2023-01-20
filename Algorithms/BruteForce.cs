@@ -4,15 +4,14 @@ namespace Salesman.Algorithms
 {
     class BruteForce : IAlgorithm
     {
-        public int[] Calculate(Point[] points, int[] solution)
+        public int[] Calculate(Point[] points)
         {
             Heaps heaps = new Heaps(points.Length);
-
+            int[] solution = SolutionMaths.NullPath(points.Length);
             double lowestDistance = -1;
 
             foreach( int[] pSolution in heaps.Combinations)
             {
-
                 double pDistance = SolutionMaths.DistanceTotal(points, pSolution, true); // IsCongrunet subcall checks for vaild
                 if (pDistance == -1) continue;
                 if (lowestDistance == -1 || pDistance < lowestDistance)

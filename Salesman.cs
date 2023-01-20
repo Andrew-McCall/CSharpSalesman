@@ -21,7 +21,7 @@ namespace Salesman
 
         public void RunAlgorithm()
         {
-            this.Solution = Algorithm.Calculate(Points.GetAllPoints(), SolutionMaths.NullPath(Points.Length));
+            this.Solution = Algorithm.Calculate(Points.GetAllPoints());
         }
 
         

@@ -27,7 +27,6 @@ namespace Salesman
 
             this.MARKER_RADIUS = MARKER_DIAMETER / 2;
 
-            //Logic.Algorithm = new GreedyAll();
             Logic.Algorithm = new BruteForceThreaded();
         }
 

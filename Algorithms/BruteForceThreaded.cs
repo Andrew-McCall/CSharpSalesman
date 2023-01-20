@@ -6,7 +6,7 @@ namespace Salesman.Algorithms
     class BruteForceThreaded : IAlgorithm
     {
 
-        public int[] Calculate(Point[] points, int[] solution)
+        public int[] Calculate(Point[] points)
         {
             Heaps heaps = new Heaps(points.Length);
 
