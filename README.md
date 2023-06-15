@@ -8,7 +8,7 @@ The Traveling Salesman is an algorithm that finds the shortest route which vists
 My project uses MS Net Core 3.1 and WPF (Window's Presentation Format). I wouldn't consider myself experienced in C# but I am now very familiar with the syntax and basic OOP implementation as well as threading via Tasks. 
 The main goal of this was to learn the basics of WPF (and I did achieve this) but after a week most my focus and thought was on the problem myself. There's a lot I'd like to improve. I would recommend anyone try to recreate a solution for these more classical computer science problems.
 
-### Useage
+### Usage
 - Click anywhere on the white canvas to create a node. 
 
 - In the Drop-down in the top right, the algorithm can be selected.
