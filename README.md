@@ -39,9 +39,9 @@ The Shortest Solution from Brute-Force
 A Tenth unsolved point from "Add Point" button
 ![Four nodes placed on the canvas](https://i.imgur.com/mCjeA7f.png)
 
-### Improvements
+### Improvements (TODO)
 - "Ant Colony" Algorithm
-- Memory Optimisations on the Brute-Force (Lists instead of Array)
+- Perf Optimisations on the Brute-Force
 - Resizable App
 - Grid / Meaning to the scale
 - Algorithm Benchmark (relative distance difference, processing time)
