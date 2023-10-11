@@ -23,20 +23,20 @@ The main goal of this was to learn the basics of WPF (and I did achieve this) bu
 
 
 ## Images
-
+  
 Empty Canvas
 ![The app, with all button's above and an empty canvas](https://i.imgur.com/90BzcDB.png)
-
+  
 Nine Nodes and Before "Calculate"
 ![Nine nodes placed on the canvas](https://i.imgur.com/PWSFxdM.png)
-
+  
 The shortest "Greedy" Solution
 ![Four nodes placed on the canvas](https://i.imgur.com/OoFY8E4.png)
-
+  
 The Shortest Solution from Brute-Force
 ![Four nodes placed on the canvas](https://i.imgur.com/XiOdqZN.png)
-
-A Tenth unsolved point from "Add Point" button
+  
+A tenth unsolved point added via "Add Point" button
 ![Four nodes placed on the canvas](https://i.imgur.com/mCjeA7f.png)
 
 ### Improvements (TODO)
